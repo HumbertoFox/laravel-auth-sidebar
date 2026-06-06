@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="flex h-screen bg-gray-100">
+<body>
     <!-- Sidebar -->
     <x-dashboard.sidebar />
 

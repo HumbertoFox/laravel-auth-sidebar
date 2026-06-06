@@ -15,6 +15,46 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register')->name('register.post');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.dashboard');
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', function () {
+        return view('dashboard.dashboard');
+    })->name('dashboard');
+
+    Route::prefix('admins')->group(function () {
+        Route::get('/', function () {
+            return view('dashboard.admins.admins');
+        })->name('admins');
+
+        Route::get('/register', function () {
+            return view('dashboard.admins.register');
+        })->name('register');
+
+        Route::get('/users', function () {
+            return view('dashboard.admins.users');
+        })->name('users');
+    });
+
+    Route::prefix('settings')->group(function () {
+        Route::get('/', function () {
+            return view('dashboard.settings.settings');
+        })->name('settings');
+
+        Route::get('/appearance', function () {
+            return view('dashboard.settings.appearance');
+        })->name('appearance');
+
+        Route::get('/password', function () {
+            return view('dashboard.settings.password');
+        })->name('password');
+
+        Route::get('/profile', function () {
+            return view('dashboard.settings.profile');
+        })->name('profile');
+    });
+
+    Route::prefix('user')->group(function () {
+        Route::get('/', function () {
+            return view('dashboard.user.user');
+        })->name('user');
+    });
 });
