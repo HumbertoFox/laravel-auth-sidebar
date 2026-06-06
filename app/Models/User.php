@@ -12,15 +12,33 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Modelo que representa um usuário do sistema.
+ *
+ * Responsável pela autenticação, notificações e
+ * gerenciamento dos dados do usuário.
+ */
 #[Fillable(['name', 'email', 'role', 'password'])]
+// Define os atributos que podem ser preenchidos em massa (mass assignment).
+
 #[Hidden(['password', 'remember_token'])]
+// Oculta esses atributos quando o modelo é convertido para array ou JSON.
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
+    /**
+     * Adiciona suporte a factories para geração de dados de teste
+     * e permite o envio de notificações ao usuário.
+     *
+     * @use HasFactory<UserFactory>
+     */
     use HasFactory, Notifiable;
 
     /**
-     * Get the attributes that should be cast.
+     * Define as conversões automáticas (casts) dos atributos.
+     *
+     * - email_verified_at: converte para objeto DateTime.
+     * - password: aplica hash automaticamente ao salvar.
+     * - role: converte para o enum UserRole.
      *
      * @return array<string, string>
      */
