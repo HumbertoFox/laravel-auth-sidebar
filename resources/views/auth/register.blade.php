@@ -1,8 +1,4 @@
-@extends('auth.layout')
-
-@section('title', 'Sign up')
-
-@section('content')
+<x-auth.layout title="Sign up">
     <div class="w-full flex flex-col justify-center gap-6 2xl:w-2/4">
         <div class="flex flex-col items-center gap-2 text-center mx-auto">
             <a href="/" class="size-10 dark:invert 2xl:hidden rounded-full">
@@ -33,4 +29,4 @@
             <x-text-link href="/login">Log in</x-text-link>
         </div>
     </div>
-@endsection
+</x-auth.layout>
