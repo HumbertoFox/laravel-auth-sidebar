@@ -15,13 +15,6 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function showRegister()
-    {
-        $hasAdmin = User::where('role', UserRole::ADMIN)->exists();
-
-        return view('auth.register', compact('hasAdmin'));
-    }
-
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -38,6 +31,13 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         return redirect()->intended('/dashboard');
+    }
+
+    public function showRegister()
+    {
+        $hasAdmin = User::where('role', UserRole::ADMIN)->exists();
+
+        return view('auth.register', compact('hasAdmin'));
     }
 
     public function register(Request $request)
