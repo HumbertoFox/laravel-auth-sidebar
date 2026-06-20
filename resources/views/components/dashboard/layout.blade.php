@@ -9,19 +9,16 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
-    <!-- Sidebar -->
-    <x-dashboard.sidebar />
+<body class="flex min-h-screen">
+    <div class="min-w-full min-h-full flex gap-1 p-1.5">
+        <!-- Sidebar -->
+        <x-dashboard.sidebar />
 
-    <!-- Conteúdo principal -->
-    <div class="flex-1 flex flex-col">
-        <x-dashboard.sidebar-header />
-
-        <main class="flex-1 p-6">
+        <!-- Conteúdo principal -->
+        <main class="flex flex-1 flex-col px-1.5">
             {{ $slot }}
         </main>
 
-        <x-dashboard.nav-user />
     </div>
 </body>
 

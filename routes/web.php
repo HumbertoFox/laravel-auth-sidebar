@@ -17,7 +17,10 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::prefix('dashboard')->group(function () {
     Route::get('/', function () {
-        return view('dashboard.dashboard');
+        $breadcrumbItems = [
+            ['text' => 'Dashboard'],
+        ];
+        return view('dashboard.dashboard', compact('breadcrumbItems'));
     })->name('dashboard');
 
     Route::prefix('admins')->group(function () {
@@ -36,11 +39,19 @@ Route::prefix('dashboard')->group(function () {
 
     Route::prefix('settings')->group(function () {
         Route::get('/', function () {
-            return view('dashboard.settings.settings');
+            $breadcrumbItems = [
+                ['text' => 'Dashboard', 'href' => route('dashboard')],
+                ['text' => 'settings'],
+            ];
+            return view('dashboard.settings.settings', compact('breadcrumbItems'));
         })->name('settings');
 
         Route::get('/appearance', function () {
-            return view('dashboard.settings.appearance');
+            $breadcrumbItems = [
+                ['text' => 'Dashboard', 'href' => route('dashboard')],
+                ['text' => 'settings'],
+            ];
+            return view('dashboard.settings.appearance', compact('breadcrumbItems'));
         })->name('appearance');
 
         Route::get('/password', function () {
@@ -48,13 +59,21 @@ Route::prefix('dashboard')->group(function () {
         })->name('password');
 
         Route::get('/profile', function () {
-            return view('dashboard.settings.profile');
+            $breadcrumbItems = [
+                ['text' => 'Dashboard', 'href' => route('dashboard')],
+                ['text' => 'settings'],
+            ];
+            return view('dashboard.settings.profile', compact('breadcrumbItems'));
         })->name('profile');
     });
 
     Route::prefix('user')->group(function () {
         Route::get('/', function () {
-            return view('dashboard.user.user');
+            $breadcrumbItems = [
+                ['text' => 'Dashboard', 'href' => route('dashboard')],
+                ['text' => 'User'],
+            ];
+            return view('dashboard.user.user', compact('breadcrumbItems'));
         })->name('user');
     });
 });
