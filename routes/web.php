@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 Route::get('/', function () {
     return view('welcome');
@@ -13,9 +14,16 @@ Route::controller(AuthController::class)->group(function () {
 
     Route::get('/register', 'showRegister')->name('register');
     Route::post('/register', 'register')->name('register.post');
+
+    Route::post('/logout', 'logout')->name('logout');
 });
 
 Route::prefix('dashboard')->group(function () {
+    View::share('user', [
+        'name' => 'Humberto Sales',
+        'email' => 'humberto@example.com',
+    ]);
+
     Route::get('/', function () {
         $breadcrumbItems = [
             ['text' => 'Dashboard'],
@@ -55,7 +63,11 @@ Route::prefix('dashboard')->group(function () {
         })->name('appearance');
 
         Route::get('/password', function () {
-            return view('dashboard.settings.password');
+            $breadcrumbItems = [
+                ['text' => 'Dashboard', 'href' => route('dashboard')],
+                ['text' => 'settings'],
+            ];
+            return view('dashboard.settings.password', compact('breadcrumbItems'));
         })->name('password');
 
         Route::get('/profile', function () {
