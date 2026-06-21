@@ -1,7 +1,7 @@
 @props(['items' => []])
 
 <header class="flex h-8 shrink-0 items-center gap-2 border-b border-b-gray-300 py-2">
-    <button type="button" class="cursor-pointer" title="Sidebar" onclick="">
+    <button type="button" class="cursor-pointer duration-500 hover:text-orange-400" title="Sidebar" onclick="">
         <x-lucide-panel-left class="size-4" />
     </button>
     <x-ui.separator orientation="vertical" class="self-stretch bg-gray-300" />
