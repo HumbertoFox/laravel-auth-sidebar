@@ -25,7 +25,7 @@
     <x-dashboard.sidebar-main-header :items="$breadcrumbItems" />
 
     <div class="flex flex-1 flex-col-reverse lg:flex-col gap-4 pt-2">
-        <div class="bg-muted/50 flex-1 rounded-xl border border-emerald-500"></div>
+        <div class="bg-muted/50 flex-1 aspect-video rounded-xl border border-emerald-500"></div>
 
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
             @foreach ($cards as $card)
