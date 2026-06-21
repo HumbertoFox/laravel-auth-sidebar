@@ -1,5 +1,5 @@
-<details class="relative mt-auto group">
-    <summary class="flex gap-2 items-center list-none cursor-pointer hover:bg-zinc-100 duration-500 p-2 rounded-lg max-lg:p-0 max-lg:justify-center hover:text-orange-400">
+<details class="relative mt-auto">
+    <summary class="flex gap-2 items-center list-none cursor-pointer hover:bg-zinc-100 duration-500 rounded-lg max-lg:justify-center hover:text-orange-400">
         <span class="flex items-center justify-center size-8 rounded-lg bg-zinc-200 text-xs font-medium">
             {{ strtoupper(substr($user['name'], 0, 1)) }}
         </span>
