@@ -53,3 +53,22 @@ function supportsStartingStyle() {
         return false;
     }
 }
+
+(function () {
+    function getSidebar() {
+        return document.getElementById("sidebar");
+    }
+
+    function init() {
+        const toggleBtn = document.getElementById("sidebar-toggle");
+        if (!toggleBtn) return;
+
+        toggleBtn.addEventListener("click", () => {
+            const sidebar = getSidebar();
+            const isCollapsed = sidebar.dataset.collapsed === "true";
+            sidebar.dataset.collapsed = isCollapsed ? "false" : "true";
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+})();
