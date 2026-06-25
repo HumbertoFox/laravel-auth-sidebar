@@ -31,58 +31,129 @@
         if (!sidebar) return;
 
         const savedPreference = localStorage.getItem(STORAGE_KEY);
-        const isSmallScreen = window.innerWidth < 1024;
+        const isSmallScreen = window.innerWidth < 1024; // Mantido o seu padrão de 1024px
+        const isMobile = window.innerWidth < 768;
+
         let newState = "false";
 
         if (isResize) {
             if (isSmallScreen) {
+                // Se a tela foi redimensionada e ficou menor que 1024px, colapsa/esconde
                 newState = "true";
             } else {
+                // Se voltou para tela grande, respeita a preferência do usuário
                 newState = savedPreference !== null ? savedPreference : "false";
             }
         } else {
             if (savedPreference !== null) {
-                newState = savedPreference;
+                // Se houver preferência e for mobile, força fechar para não cobrir a tela no load
+                newState = isMobile ? "true" : savedPreference;
             } else {
+                // Sem preferência: menor que 1024px começa fechada (true)
                 newState = isSmallScreen ? "true" : "false";
             }
         }
 
-        // Atualiza ambos em sincronia
+        // Atualiza os atributos em sincronia
         sidebar.dataset.collapsed = newState;
         document.documentElement.setAttribute(
             "data-sidebar-collapsed",
             newState,
         );
+
+        const backdrop = document.getElementById("sidebar-backdrop");
+        if (backdrop) {
+            const isMobile = window.innerWidth < 768;
+            if (!isMobile || newState === "true") {
+                backdrop.classList.add("hidden");
+            } else if (isMobile && newState === "false") {
+                backdrop.classList.remove("hidden");
+            }
+        }
     }
 
     function initSidebar() {
         const toggleBtn = document.getElementById("sidebar-toggle");
+        const backdrop = document.getElementById("sidebar-backdrop");
 
+        // Inicializa o estado correto da sidebar e do backdrop ao carregar a página
         updateSidebarState();
+
+        // Monitora o redimensionamento da tela
         window.addEventListener("resize", () => updateSidebarState(true));
 
-        if (!toggleBtn) return;
-
-        toggleBtn.addEventListener("click", () => {
+        // Função interna auxiliar para fechar a sidebar no mobile de forma rápida
+        function closeSidebarOnMobile() {
             const sidebar = getSidebar();
-            if (!sidebar) return;
+            const isMobile = window.innerWidth < 768;
 
-            const isCollapsed = sidebar.dataset.collapsed === "true";
-            const newState = isCollapsed ? "false" : "true";
+            if (sidebar && isMobile) {
+                sidebar.dataset.collapsed = "true";
+                document.documentElement.setAttribute(
+                    "data-sidebar-collapsed",
+                    "true",
+                );
+                if (backdrop) backdrop.classList.add("hidden");
+            }
+        }
 
-            // 1. Aplica o novo estado na Sidebar (para o app.js controlar)
-            sidebar.dataset.collapsed = newState;
+        // 1. Gerencia o clique no botão principal de abrir/fechar (Toggle)
+        if (toggleBtn) {
+            toggleBtn.addEventListener("click", () => {
+                const sidebar = getSidebar();
+                if (!sidebar) return;
 
-            // 2. ATUALIZA O HTML TAMBÉM! (Isso resolve o seu problema)
-            document.documentElement.setAttribute(
-                "data-sidebar-collapsed",
-                newState,
+                const isCollapsed = sidebar.dataset.collapsed === "true";
+                const newState = isCollapsed ? "false" : "true";
+                const isMobile = window.innerWidth < 768;
+
+                // Aplica a mudança de estado síncrona
+                sidebar.dataset.collapsed = newState;
+                document.documentElement.setAttribute(
+                    "data-sidebar-collapsed",
+                    newState,
+                );
+                localStorage.setItem(STORAGE_KEY, newState);
+
+                // Controla o backdrop no mobile baseando-se no novo estado aplicado
+                if (backdrop && isMobile) {
+                    if (newState === "false") {
+                        backdrop.classList.remove("hidden");
+                    } else {
+                        backdrop.classList.add("hidden");
+                    }
+                }
+            });
+        }
+
+        // 2. FECHAR AO CLICAR FORA: Fecha a sidebar caso o usuário toque na região escura
+        if (backdrop) {
+            backdrop.addEventListener("click", closeSidebarOnMobile);
+        }
+
+        // 3. FECHAR AO CLICAR EM LINKS: Fecha automaticamente a barra após escolher uma opção no mobile
+        const sidebarContainer = getSidebar();
+        if (sidebarContainer) {
+            const interactiveElements = sidebarContainer.querySelectorAll(
+                ".sidebar-item, button, a",
             );
 
-            // 3. Grava no localStorage
-            localStorage.setItem(STORAGE_KEY, newState);
-        });
+            interactiveElements.forEach((element) => {
+                // Ignora o próprio botão de toggle e formulários puros
+                if (
+                    element.id === "sidebar-toggle" ||
+                    element.tagName === "FORM"
+                )
+                    return;
+
+                element.addEventListener("click", () => {
+                    // Ignora se for o <summary> do menu do usuário (para permitir que o submenu abra)
+                    if (element.tagName === "SUMMARY") return;
+
+                    closeSidebarOnMobile();
+                });
+            });
+        }
     }
 
     /**

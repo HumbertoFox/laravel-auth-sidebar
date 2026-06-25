@@ -10,46 +10,84 @@
 
 @layer components {
 
-    /* Estado Padrão (Aberto) */
+    /* Base comum para a sidebar em qualquer tela */
     #sidebar {
-        width: 15rem;
-        transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .sidebar-icon {
-        width: 1.25rem;
-        height: 1.25rem;
-        transition: width 200ms, height 200ms;
-        /* Suaviza o redimensionamento do ícone */
-    }
-
-    .sidebar-item {
-        padding: 0.375rem;
+        background-color: rgb(250 250 250);
+        /* bg-zinc-50 */
+        border-right: 1px solid rgb(226 232 240);
+        /* border-slate-200 */
     }
 
     /* ==========================================
-       Estado Colapsado (Fechado)
-       Como o JS sincroniza o HTML e a Sidebar,
-       usar apenas o seletor do #sidebar resolve!
+       1. MOBILE (Menor que 768px) - FLUTUANTE
        ========================================== */
-    #sidebar[data-collapsed='true'] {
-        width: 3.5rem;
+    @media (max-width: 767px) {
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            /* Totalmente escondida para fora da tela */
+            bottom: 0;
+            width: 16rem !important;
+            /* Largura fixa quando aberta no mobile */
+            z-index: 100;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            transition: left 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 0;
+        }
+
+        /* Quando aberta no mobile (data-collapsed=false), ela desliza para dentro */
+        #sidebar[data-collapsed='false'] {
+            left: 0;
+        }
+
+        /* Garante que os ícones e textos fiquem normais no mobile quando aberta */
+        #sidebar[data-collapsed='false'] .sidebar-label {
+            display: inline !important;
+        }
+
+        #sidebar[data-collapsed='false'] .sidebar-icon {
+            width: 1.25rem !important;
+            height: 1.25rem !important;
+        }
     }
 
-    /* Ícones maiores quando fechado */
-    #sidebar[data-collapsed='true'] .sidebar-icon {
-        width: 2rem;
-        height: 2rem;
-    }
+    /* ==========================================
+       2. DESKTOP/TABLET (A partir de 768px) - LATERAL RESIDENCIAL
+       ========================================== */
+    @media (min-width: 768px) {
+        #sidebar {
+            width: 15rem;
+            transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    /* Esconde os textos quando fechado */
-    #sidebar[data-collapsed='true'] .sidebar-label {
-        display: none;
-    }
+        .sidebar-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: width 200ms, height 200ms;
+        }
 
-    /* Centraliza os itens quando fechado */
-    #sidebar[data-collapsed='true'] .sidebar-item {
-        justify-content: center;
-        padding: 0.125rem;
+        .sidebar-item {
+            padding: 0.375rem;
+        }
+
+        /* Estado Colapsado (Fechado) no Desktop/Tablet */
+        #sidebar[data-collapsed='true'] {
+            width: 3.5rem;
+        }
+
+        #sidebar[data-collapsed='true'] .sidebar-icon {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        #sidebar[data-collapsed='true'] .sidebar-label {
+            display: none;
+        }
+
+        #sidebar[data-collapsed='true'] .sidebar-item {
+            justify-content: center;
+            padding: 0.125rem;
+        }
     }
 }

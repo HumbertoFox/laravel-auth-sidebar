@@ -8,14 +8,13 @@
     <title>Dashboard</title>
 
     <script>
-        (function () {
+        (function() {
             const saved = localStorage.getItem('sidebar_collapsed');
-            const isSmall = window.innerWidth < 1024;
+            const isSmallScreen = window.innerWidth < 1024; // Mantido em 1024px
 
-            // Determina o estado inicial antes da página renderizar na tela
-            const shouldCollapse = saved === 'true' || (saved === null && isSmall);
+            // Se o usuário salvou como fechado OU se é a primeira vez em tela menor que 1024px
+            const shouldCollapse = saved === 'true' || (saved === null && isSmallScreen);
 
-            // Injeta o atributo direto na tag HTML para que o CSS/Tailwind aplique o estilo instantaneamente
             document.documentElement.setAttribute('data-sidebar-collapsed', shouldCollapse ? 'true' : 'false');
         })();
     </script>
@@ -23,14 +22,15 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="flex min-h-screen">
+<body class="flex min-h-screen relative">
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden"></div>
+
     <div class="min-w-full min-h-full flex gap-1 p-1.5">
         <x-dashboard.sidebar />
 
         <main class="flex flex-1 flex-col px-1.5">
             {{ $slot }}
         </main>
-
     </div>
 </body>
 
