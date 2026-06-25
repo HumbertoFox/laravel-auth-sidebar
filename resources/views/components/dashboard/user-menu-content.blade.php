@@ -5,9 +5,9 @@
 <x-ui.separator orientation="horizontal" class="self-stretch bg-gray-200 my-1" />
 
 <a href="{{ route('settings') }}"
-    class="flex items-center w-full px-2 py-1.5 text-sm rounded hover:bg-zinc-100 cursor-pointer transition-colors duration-200">
-    <x-lucide-settings class="size-4 mr-2 text-zinc-500" />
-    Settings
+    class="group/settings flex items-center w-full px-2 py-1.5 text-sm rounded hover:bg-zinc-100 cursor-pointer transition-colors duration-200">
+    <x-lucide-settings class="size-4 mr-2 text-zinc-500 group-hover/settings:text-orange-400" />
+    <span class="group-hover/settings:text-orange-400">Settings</span>
 </a>
 
 <x-ui.separator orientation="horizontal" class="self-stretch bg-gray-200 my-1" />

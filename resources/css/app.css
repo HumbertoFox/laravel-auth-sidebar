@@ -41,12 +41,17 @@
             left: 0;
         }
 
+        .sidebar-item {
+            padding: 0.375rem;
+        }
+
         /* Garante que os ícones e textos fiquem normais no mobile quando aberta */
         #sidebar[data-collapsed='false'] .sidebar-label {
             display: inline !important;
         }
 
-        #sidebar[data-collapsed='false'] .sidebar-icon {
+        #sidebar[data-collapsed='false'] .sidebar-icon,
+        #sidebar[data-collapsed='true'] .sidebar-icon {
             width: 1.25rem !important;
             height: 1.25rem !important;
         }
@@ -77,8 +82,8 @@
         }
 
         #sidebar[data-collapsed='true'] .sidebar-icon {
-            width: 2rem;
-            height: 2rem;
+            width: 1.75rem;
+            height: 1.75rem;
         }
 
         #sidebar[data-collapsed='true'] .sidebar-label {
