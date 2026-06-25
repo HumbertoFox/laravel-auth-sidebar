@@ -234,6 +234,34 @@
 
     /**
      * ==========================================
+     * 5. FECHAR <details> AO CLICAR FORA OU PRESSIONAR ESC
+     * ==========================================
+     */
+    function initOutsideClickClose() {
+        document.addEventListener("click", (event) => {
+            document.querySelectorAll("details[open]").forEach((details) => {
+                const isClickInside = details.contains(event.target);
+                if (!isClickInside) {
+                    details.removeAttribute("open");
+                }
+            });
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key !== "Escape") return;
+
+            document.querySelectorAll("details[open]").forEach((details) => {
+                details.removeAttribute("open");
+
+                // Devolve o foco para o <summary>, mantendo a navegação por teclado consistente
+                const summary = details.querySelector("summary");
+                if (summary) summary.focus();
+            });
+        });
+    }
+
+    /**
+     * ==========================================
      * DISPARO INICIAL (Quando o DOM estiver pronto)
      * ==========================================
      */
@@ -241,5 +269,6 @@
         initSidebar();
         initPasswordToggles();
         initWelcomeAnimations();
+        initOutsideClickClose();
     });
 })();
