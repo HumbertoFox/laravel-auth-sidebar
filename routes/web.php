@@ -33,15 +33,27 @@ Route::prefix('dashboard')->group(function () {
 
     Route::prefix('admins')->group(function () {
         Route::get('/', function () {
-            return view('dashboard.admins.admins');
+            $breadcrumbItems = [
+                ['text' => 'Dashboard', 'href' => route('dashboard')],
+                ['text' => 'Admins']
+            ];
+            return view('dashboard.admins.admins', compact('breadcrumbItems'));
         })->name('admins');
 
         Route::get('/register', function () {
-            return view('dashboard.admins.register');
+            $breadcrumbItems = [
+                ['text' => 'Dashboard', 'href' => route('dashboard')],
+                ['text' => 'Register']
+            ];
+            return view('dashboard.admins.register', compact('breadcrumbItems'));
         })->name('register');
 
         Route::get('/users', function () {
-            return view('dashboard.admins.users');
+            $breadcrumbItems = [
+                ['text' => 'Dashboard', 'href' => route('dashboard')],
+                ['text' => 'Users']
+            ];
+            return view('dashboard.admins.users', compact('breadcrumbItems'));
         })->name('users');
     });
 
@@ -49,7 +61,7 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/', function () {
             $breadcrumbItems = [
                 ['text' => 'Dashboard', 'href' => route('dashboard')],
-                ['text' => 'settings'],
+                ['text' => 'settings']
             ];
             return view('dashboard.settings.settings', compact('breadcrumbItems'));
         })->name('settings');
@@ -57,7 +69,7 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/appearance', function () {
             $breadcrumbItems = [
                 ['text' => 'Dashboard', 'href' => route('dashboard')],
-                ['text' => 'settings'],
+                ['text' => 'settings']
             ];
             return view('dashboard.settings.appearance', compact('breadcrumbItems'));
         })->name('appearance');
@@ -65,7 +77,7 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/password', function () {
             $breadcrumbItems = [
                 ['text' => 'Dashboard', 'href' => route('dashboard')],
-                ['text' => 'settings'],
+                ['text' => 'settings']
             ];
             return view('dashboard.settings.password', compact('breadcrumbItems'));
         })->name('password');
@@ -73,7 +85,7 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/profile', function () {
             $breadcrumbItems = [
                 ['text' => 'Dashboard', 'href' => route('dashboard')],
-                ['text' => 'settings'],
+                ['text' => 'settings']
             ];
             return view('dashboard.settings.profile', compact('breadcrumbItems'));
         })->name('profile');
@@ -83,7 +95,7 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/', function () {
             $breadcrumbItems = [
                 ['text' => 'Dashboard', 'href' => route('dashboard')],
-                ['text' => 'User'],
+                ['text' => 'User']
             ];
             return view('dashboard.user.user', compact('breadcrumbItems'));
         })->name('user');
