@@ -1,3 +1,3 @@
-<x-layouts.sidebar>
+<x-layouts.sidebar title="User">
     <x-sidebar.main-header :items="$breadcrumbItems" />
 </x-layouts.sidebar>

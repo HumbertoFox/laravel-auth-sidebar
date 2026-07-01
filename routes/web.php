@@ -22,6 +22,9 @@ Route::prefix('dashboard')->group(function () {
     View::share('user', [
         'name' => 'Humberto Sales',
         'email' => 'humberto@example.com',
+        'avatar' => 'https://i.pravatar.cc/150?img=33',
+        'role' => 'Admin',
+        'email_verified' => true,
     ]);
 
     Route::get('/', function () {
@@ -65,6 +68,14 @@ Route::prefix('dashboard')->group(function () {
             ];
             return view('dashboard.settings.settings', compact('breadcrumbItems'));
         })->name('settings');
+
+        Route::get('/verify-email', function () {
+            $breadcrumbItems = [
+                ['text' => 'Dashboard', 'href' => route('dashboard')],
+                ['text' => 'Verify Email']
+            ];
+            return view('dashboard.settings.verify-email', compact('breadcrumbItems'));
+        })->name('verify-email');
 
         Route::get('/appearance', function () {
             $breadcrumbItems = [

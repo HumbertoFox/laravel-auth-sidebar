@@ -21,7 +21,7 @@
     ];
 @endphp
 
-<x-layouts.sidebar>
+<x-layouts.sidebar title="Dashboard">
     <x-sidebar.main-header :items="$breadcrumbItems" />
 
     <div class="flex flex-1 flex-col-reverse lg:flex-col gap-4 pt-2">
