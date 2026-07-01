@@ -12,6 +12,6 @@
 
     <div
         class="absolute bottom-0 left-full mb-1 ml-2 w-56 rounded-md border border-gray-200 bg-white shadow-lg z-50 p-1">
-        <x-dashboard.user-menu-content :user="$user" />
+        <x-sidebar.user-menu-content :user="$user" />
     </div>
 </details>

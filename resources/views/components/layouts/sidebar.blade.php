@@ -26,7 +26,7 @@
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden"></div>
 
     <div class="min-w-full min-h-full flex gap-1 p-1.5">
-        <x-dashboard.sidebar />
+        <x-sidebar.main />
 
         <main class="flex flex-1 flex-col px-1.5">
             {{ $slot }}

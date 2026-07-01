@@ -1,3 +1,3 @@
-<x-dashboard.layout>
-    <x-dashboard.sidebar-main-header :items="$breadcrumbItems" />
-</x-dashboard.layout>
+<x-layouts.sidebar>
+    <x-sidebar.main-header :items="$breadcrumbItems" />
+</x-layouts.sidebar>

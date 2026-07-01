@@ -1,4 +1,4 @@
-<x-auth.layout title="Log in">
+<x-layouts.auth title="Log in">
     <div class="w-full flex flex-col justify-center gap-6 2xl:w-2/4">
         <div class="flex flex-col items-center gap-2 text-center mx-auto">
             <a href="/" class="size-10 dark:invert 2xl:hidden rounded-full">
@@ -12,13 +12,13 @@
         <form action="{{ route('login.post') }}" method="POST" class="w-full max-w-xs flex flex-col gap-6 mx-auto">
             @csrf
             <div class="flex flex-col gap-4">
-                <x-ui.input label="Email address" name="email" type="email" placeholder="email@example.com"
+                <x-input label="Email address" name="email" type="email" placeholder="email@example.com"
                     :value="old('email')" :error="$errors->first('email')" required />
-                <x-ui.input label="Password" name="password" type="password" placeholder="Password" :error="$errors->first('password')"
+                <x-input label="Password" name="password" type="password" placeholder="Password" :error="$errors->first('password')"
                     required />
             </div>
 
-            <x-ui.button type="submit" class="w-full">Log in</x-ui.button>
+            <x-button type="submit" class="w-full">Log in</x-button>
         </form>
 
         <div class="text-muted-foreground text-center text-sm">
@@ -26,4 +26,4 @@
             <x-text-link href="/register">Sign up</x-text-link>
         </div>
     </div>
-</x-auth.layout>
+</x-layouts.auth>

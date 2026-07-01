@@ -3,7 +3,7 @@
             html[data-sidebar-collapsed='true']_&]:w-16
             data-[collapsed='true']:w-16">
 
-    <x-dashboard.sidebar-header />
-    <x-dashboard.sidebar-main />
-    <x-dashboard.sidebar-footer />
+    <x-sidebar.header />
+    <x-sidebar.content />
+    <x-sidebar.footer />
 </div>

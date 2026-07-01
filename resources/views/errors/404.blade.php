@@ -19,7 +19,7 @@
             <p class="mt-6 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
                 Sorry, we couldn't find the page you're looking for.
             </p>
-            <x-ui.button size="sm" type="button" onclick="history.back()">To go back</x-ui.button>
+            <x-button size="sm" type="button" onclick="history.back()">To go back</x-button>
         </div>
     </main>
 </body>

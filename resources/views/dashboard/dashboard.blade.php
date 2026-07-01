@@ -21,8 +21,8 @@
     ];
 @endphp
 
-<x-dashboard.layout>
-    <x-dashboard.sidebar-main-header :items="$breadcrumbItems" />
+<x-layouts.sidebar>
+    <x-sidebar.main-header :items="$breadcrumbItems" />
 
     <div class="flex flex-1 flex-col-reverse lg:flex-col gap-4 pt-2">
         <div class="bg-muted/50 flex-1 max-md:aspect-video rounded-xl border border-emerald-500"></div>
@@ -36,4 +36,4 @@
             @endforeach
         </div>
     </div>
-</x-dashboard.layout>
+</x-layouts.sidebar>

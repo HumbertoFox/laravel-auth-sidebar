@@ -7,7 +7,7 @@
         <x-lucide-panel-left class="size-4" />
     </button>
 
-    <x-ui.separator orientation="vertical" class="self-stretch bg-gray-200 my-2" />
+    <x-separator orientation="vertical" class="self-stretch bg-gray-200 my-2" />
 
     <nav class="flex items-center gap-1.5 text-sm">
         @foreach ($items as $index => $item)
