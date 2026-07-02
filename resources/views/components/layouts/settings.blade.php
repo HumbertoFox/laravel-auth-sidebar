@@ -2,13 +2,13 @@
     $sidebarNavItems = [
         ['text' => 'Settings', 'route' => 'settings'],
         ['text' => 'Profile', 'route' => 'profile'],
-        ['text' => 'Verify Email', 'route' => 'verify-email'],
+        ['text' => 'Verify Email', 'route' => 'verifyemail'],
         ['text' => 'Password', 'route' => 'password'],
         ['text' => 'Appearance', 'route' => 'appearance'],
     ];
 
     $visibleItems = collect($sidebarNavItems)->filter(
-        fn($item) => $item['route'] !== 'verify-email' || !$user['email_verified'],
+        fn($item) => $item['route'] !== 'verifyemail' || !$user['email_verified'],
     );
 @endphp
 
@@ -17,15 +17,14 @@
     <h2 class="text-muted-foreground text-sm">Manage your profile and account settings.</h2>
 </div>
 
-<x-separator class="my-6 md:hidden" />
-
-<section class="max-w-xl flex flex-col gap-4 p-4 md:flex-row">
-    <aside class="w-full max-w-xl lg:w-48 shrink-0">
+<section class="flex flex-col gap-4 p-4 md:flex-row">
+    <aside class="min-w-48 max-w-xl lg:w-48 shrink-0">
         <nav class="flex flex-col gap-1">
             @foreach ($visibleItems as $item)
                 <a href="{{ route($item['route']) }}" @class([
-                    'w-full justify-start px-3 py-2 text-sm rounded-md transition-colors',
-                    'bg-muted font-medium text-orange-400' => request()->routeIs($item['route']),
+                    'flex justify-start px-3 py-2 text-sm transition-colors mr-auto',
+                    'bg-muted font-medium text-orange-400' => request()->routeIs(
+                        $item['route']),
                     'hover:bg-muted/50 text-muted-foreground hover:text-foreground hover:text-orange-400' => !request()->routeIs(
                         $item['route']),
                 ])>
@@ -35,5 +34,9 @@
         </nav>
     </aside>
 
-    {{ $slot }}
+    <x-separator orientation="horizontal" class="md:hidden" />
+
+    <div class="w-full flex flex-col">
+        {{ $slot }}
+    </div>
 </section>

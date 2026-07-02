@@ -20,11 +20,17 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::prefix('dashboard')->group(function () {
     View::share('user', [
+        'id' => (string) \Illuminate\Support\Str::uuid(),
         'name' => 'Humberto Sales',
         'email' => 'humberto@example.com',
-        'avatar' => 'https://i.pravatar.cc/150?img=33',
+        'password' => 'senha-fake-hash',
         'role' => 'Admin',
-        'email_verified' => true,
+        'avatar' => 'https://i.pravatar.cc/150?img=33',
+        'email_verified' => null, // null = não verificado; string (data) = verificado
+        'password_changed_at' => null,
+        'deleted_at' => null,
+        'created_at' => now()->subMonths(3)->toDateTimeString(),
+        'updated_at' => now()->toDateTimeString(),
     ]);
 
     Route::get('/', function () {
@@ -69,18 +75,18 @@ Route::prefix('dashboard')->group(function () {
             return view('dashboard.settings.settings', compact('breadcrumbItems'));
         })->name('settings');
 
-        Route::get('/verify-email', function () {
+        Route::get('/verifyemail', function () {
             $breadcrumbItems = [
                 ['text' => 'Dashboard', 'href' => route('dashboard')],
                 ['text' => 'Verify Email']
             ];
-            return view('dashboard.settings.verify-email', compact('breadcrumbItems'));
-        })->name('verify-email');
+            return view('dashboard.settings.verifyemail', compact('breadcrumbItems'));
+        })->name('verifyemail');
 
         Route::get('/appearance', function () {
             $breadcrumbItems = [
                 ['text' => 'Dashboard', 'href' => route('dashboard')],
-                ['text' => 'settings']
+                ['text' => 'Appearance']
             ];
             return view('dashboard.settings.appearance', compact('breadcrumbItems'));
         })->name('appearance');
@@ -88,7 +94,7 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/password', function () {
             $breadcrumbItems = [
                 ['text' => 'Dashboard', 'href' => route('dashboard')],
-                ['text' => 'settings']
+                ['text' => 'Password']
             ];
             return view('dashboard.settings.password', compact('breadcrumbItems'));
         })->name('password');
@@ -96,7 +102,7 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/profile', function () {
             $breadcrumbItems = [
                 ['text' => 'Dashboard', 'href' => route('dashboard')],
-                ['text' => 'settings']
+                ['text' => 'Profile']
             ];
             return view('dashboard.settings.profile', compact('breadcrumbItems'));
         })->name('profile');
