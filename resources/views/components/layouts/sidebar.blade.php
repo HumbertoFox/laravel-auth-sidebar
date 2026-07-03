@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? 'Dashboard' }}</title>
-
     <script>
         (function() {
             const saved = localStorage.getItem('sidebar_collapsed');
@@ -18,8 +17,8 @@
             document.documentElement.setAttribute('data-sidebar-collapsed', shouldCollapse ? 'true' : 'false');
         })();
     </script>
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @fonts
 </head>
 
 <body class="flex min-h-screen relative">

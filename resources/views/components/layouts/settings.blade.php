@@ -17,12 +17,12 @@
     <h2 class="text-muted-foreground text-sm">Manage your profile and account settings.</h2>
 </div>
 
-<section class="flex flex-col gap-4 p-4 md:flex-row">
+<section class="flex flex-col gap-2 p-4 md:flex-row">
     <aside class="min-w-48 max-w-xl lg:w-48 shrink-0">
         <nav class="flex flex-col gap-1">
             @foreach ($visibleItems as $item)
                 <a href="{{ route($item['route']) }}" @class([
-                    'flex justify-start px-3 py-2 text-sm transition-colors mr-auto',
+                    'flex justify-start px-3 py-1 text-sm transition-colors mr-auto',
                     'bg-muted font-medium text-orange-400' => request()->routeIs(
                         $item['route']),
                     'hover:bg-muted/50 text-muted-foreground hover:text-foreground hover:text-orange-400' => !request()->routeIs(
@@ -36,7 +36,7 @@
 
     <x-separator orientation="horizontal" class="md:hidden" />
 
-    <div class="w-full flex flex-col">
+    <div class="w-full flex flex-col gap-2">
         {{ $slot }}
     </div>
 </section>

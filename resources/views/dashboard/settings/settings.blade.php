@@ -17,7 +17,7 @@
                     <img src="{{ $user['avatar'] }}" alt="avatar {{ $user['name'] }}" class="size-full object-cover" />
                 @else
                     <div
-                        class="size-full flex items-center justify-center font-bold font-serif text-8xl bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white rounded-full">
+                        class="size-full flex items-center justify-center font-bold font-sans text-8xl bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white rounded-full">
                         {{ $initials }}
                     </div>
                 @endif
@@ -31,7 +31,7 @@
                     </span>
                 </div>
 
-                <span class="font-extralight font-serif text-3xl">
+                <span class="font-extralight font-pirata text-3xl">
                     <strong>{{ $user['name'] }}</strong>
                 </span>
 
@@ -47,7 +47,7 @@
                 <div>
                     <strong>Account Type: </strong>
                     <span @class([
-                        'font-serif',
+                        'font-sans',
                         'text-blue-800' => strtoupper($user['role']) === 'ADMIN',
                         'text-green-800' => strtoupper($user['role']) !== 'ADMIN',
                     ])>

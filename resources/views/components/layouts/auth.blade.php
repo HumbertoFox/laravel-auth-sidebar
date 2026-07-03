@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? 'Auth' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @fonts
 </head>
 
 <body>
