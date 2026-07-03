@@ -17,8 +17,8 @@
             document.documentElement.setAttribute('data-sidebar-collapsed', shouldCollapse ? 'true' : 'false');
         })();
     </script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @fonts
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="flex min-h-screen relative">

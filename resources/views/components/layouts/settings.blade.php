@@ -23,7 +23,7 @@
             @foreach ($visibleItems as $item)
                 <a href="{{ route($item['route']) }}" @class([
                     'flex justify-start px-3 py-1 text-sm transition-colors mr-auto',
-                    'bg-muted font-medium text-orange-400' => request()->routeIs(
+                    'italic bg-muted font-medium text-orange-400' => request()->routeIs(
                         $item['route']),
                     'hover:bg-muted/50 text-muted-foreground hover:text-foreground hover:text-orange-400' => !request()->routeIs(
                         $item['route']),
