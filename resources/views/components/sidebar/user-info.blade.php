@@ -1,10 +1,15 @@
 @props(['user', 'showEmail' => false])
 
 <div class="flex items-center gap-2">
-    <span
-        class="flex items-center justify-center size-8 rounded-lg bg-zinc-200 text-xs font-medium shrink-0 select-none">
-        {{ strtoupper(substr($user['name'], 0, 1)) }}{{ strtoupper(substr(strrchr($user['name'], ' ') ?: $user['name'], 1, 1)) }}
-    </span>
+    @if (!empty($user['avatar']))
+        <img src="{{ $user['avatar'] }}" alt="avatar {{ $user['name'] }}"
+            class="size-8 rounded-lg object-cover shrink-0" />
+    @else
+        <span
+            class="flex items-center justify-center size-8 rounded-lg bg-zinc-200 text-xs font-medium shrink-0 select-none">
+            {{ strtoupper(substr($user['name'], 0, 1)) }}{{ strtoupper(substr(strrchr($user['name'], ' ') ?: $user['name'], 1, 1)) }}
+        </span>
+    @endif
 
     <div class="flex flex-col leading-tight overflow-hidden">
         <span class="font-medium text-zinc-900 truncate">{{ $user['name'] }}</span>

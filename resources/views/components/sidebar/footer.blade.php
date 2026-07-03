@@ -3,9 +3,14 @@
         class="sidebar-item w-full flex gap-2 items-center list-none cursor-pointer hover:bg-zinc-100 transition-colors duration-300 rounded-lg hover:text-orange-400 overflow-hidden whitespace-nowrap"
         title="{{ $user['name'] }}">
 
-        <span class="flex items-center justify-center size-8 rounded-lg bg-zinc-200 text-xs font-medium shrink-0">
-            {{ strtoupper(substr($user['name'], 0, 1)) }}{{ strtoupper(substr(strrchr($user['name'], ' ') ?: $user['name'], 1, 1)) }}
-        </span>
+        @if (!empty($user['avatar']))
+            <img src="{{ $user['avatar'] }}" alt="avatar {{ $user['name'] }}"
+                class="size-8 rounded-lg object-cover shrink-0" />
+        @else
+            <span class="flex items-center justify-center size-8 rounded-lg bg-zinc-200 text-xs font-medium shrink-0">
+                {{ strtoupper(substr($user['name'], 0, 1)) }}{{ strtoupper(substr(strrchr($user['name'], ' ') ?: $user['name'], 1, 1)) }}
+            </span>
+        @endif
 
         <span class="sidebar-label font-semibold text-sm">{{ $user['name'] }}</span>
     </summary>

@@ -12,10 +12,9 @@
         @endphp
 
         <div class="flex flex-1 flex-col lg:flex-row gap-4 cursor-default">
-            <div class="size-40 rounded-full overflow-hidden border border-gray-300">
+            <div class="size-40 rounded-lg overflow-hidden border border-gray-300">
                 @if (!empty($user['avatar']))
-                    <img src="{{ $user['avatar'] }}" alt="{{ $user['name'] }}"
-                        class="size-full object-cover rounded-full" />
+                    <img src="{{ $user['avatar'] }}" alt="avatar {{ $user['name'] }}" class="size-full object-cover" />
                 @else
                     <div
                         class="size-full flex items-center justify-center font-bold font-serif text-8xl bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white rounded-full">
