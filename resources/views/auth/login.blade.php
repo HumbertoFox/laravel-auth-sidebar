@@ -16,6 +16,9 @@
                     :value="old('email')" :error="$errors->first('email')" required />
                 <x-input label="Password" name="password" type="password" placeholder="Password" :error="$errors->first('password')"
                     required />
+                <div class="flex justify-end text-xs">
+                    <x-text-link href="/">Forgot your password?</x-text-link>
+                </div>
             </div>
 
             <x-button type="submit" class="w-full">Log in</x-button>

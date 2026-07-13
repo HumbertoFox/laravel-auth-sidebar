@@ -4,7 +4,7 @@
 
 <x-separator orientation="horizontal" class="self-stretch my-1" />
 
-<a href="{{ route('settings') }}"
+<a href="{{ route('dashboard.settings.index') }}"
     class="group/settings flex items-center w-full px-2 py-1.5 text-sm rounded hover:bg-zinc-100 cursor-pointer transition-colors duration-200">
     <x-lucide-settings class="size-4 mr-2 text-zinc-500 group-hover/settings:text-orange-400" />
     <span class="group-hover/settings:text-orange-400">Settings</span>

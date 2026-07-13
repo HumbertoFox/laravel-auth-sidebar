@@ -30,7 +30,7 @@
 
     @if ($label)
         <label for="{{ $inputId }}"
-            class="text-sm font-medium leading-none text-zinc-700 dark:text-zinc-300 peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            class="text-sm font-medium leading-none text-zinc-700 dark:text-zinc-300 peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mr-auto">
             {{ $label }}
         </label>
     @endif

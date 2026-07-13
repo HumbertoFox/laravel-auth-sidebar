@@ -1,19 +1,19 @@
 @php
     $cards = [
         [
-            'href' => route('user'),
+            'href' => route('dashboard.user.index'),
             'color' => 'border-blue-500',
             'iconColor' => 'text-blue-500',
             'icon' => 'user-round',
         ],
         [
-            'href' => route('profile'),
+            'href' => route('dashboard.settings.profile'),
             'color' => 'border-green-500',
             'iconColor' => 'text-green-500',
             'icon' => 'file-sliders',
         ],
         [
-            'href' => route('appearance'),
+            'href' => route('dashboard.settings.appearance'),
             'color' => 'border-purple-500',
             'iconColor' => 'text-purple-500',
             'icon' => 'monitor-cog',

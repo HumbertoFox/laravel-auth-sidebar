@@ -1,10 +1,10 @@
 @php
     $sidebarNavItems = [
-        ['text' => 'Settings', 'route' => 'settings'],
-        ['text' => 'Profile', 'route' => 'profile'],
-        ['text' => 'Verify Email', 'route' => 'verifyemail'],
-        ['text' => 'Password', 'route' => 'password'],
-        ['text' => 'Appearance', 'route' => 'appearance'],
+        ['text' => 'Settings', 'route' => 'dashboard.settings.index'],
+        ['text' => 'Profile', 'route' => 'dashboard.settings.profile'],
+        ['text' => 'Verify Email', 'route' => 'dashboard.settings.verifyemail'],
+        ['text' => 'Password', 'route' => 'dashboard.settings.password'],
+        ['text' => 'Appearance', 'route' => 'dashboard.settings.appearance'],
     ];
 
     $visibleItems = collect($sidebarNavItems)->filter(

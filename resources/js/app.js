@@ -31,30 +31,25 @@
         if (!sidebar) return;
 
         const savedPreference = localStorage.getItem(STORAGE_KEY);
-        const isSmallScreen = window.innerWidth < 1024; // Mantido o seu padrão de 1024px
+        const isSmallScreen = window.innerWidth < 1024;
         const isMobile = window.innerWidth < 768;
 
         let newState = "false";
 
         if (isResize) {
             if (isSmallScreen) {
-                // Se a tela foi redimensionada e ficou menor que 1024px, colapsa/esconde
                 newState = "true";
             } else {
-                // Se voltou para tela grande, respeita a preferência do usuário
                 newState = savedPreference !== null ? savedPreference : "false";
             }
         } else {
             if (savedPreference !== null) {
-                // Se houver preferência e for mobile, força fechar para não cobrir a tela no load
                 newState = isMobile ? "true" : savedPreference;
             } else {
-                // Sem preferência: menor que 1024px começa fechada (true)
                 newState = isSmallScreen ? "true" : "false";
             }
         }
 
-        // Atualiza os atributos em sincronia
         sidebar.dataset.collapsed = newState;
         document.documentElement.setAttribute(
             "data-sidebar-collapsed",
@@ -76,13 +71,10 @@
         const toggleBtn = document.getElementById("sidebar-toggle");
         const backdrop = document.getElementById("sidebar-backdrop");
 
-        // Inicializa o estado correto da sidebar e do backdrop ao carregar a página
         updateSidebarState();
 
-        // Monitora o redimensionamento da tela
         window.addEventListener("resize", () => updateSidebarState(true));
 
-        // Função interna auxiliar para fechar a sidebar no mobile de forma rápida
         function closeSidebarOnMobile() {
             const sidebar = getSidebar();
             const isMobile = window.innerWidth < 768;
@@ -97,7 +89,6 @@
             }
         }
 
-        // 1. Gerencia o clique no botão principal de abrir/fechar (Toggle)
         if (toggleBtn) {
             toggleBtn.addEventListener("click", () => {
                 const sidebar = getSidebar();
@@ -107,7 +98,6 @@
                 const newState = isCollapsed ? "false" : "true";
                 const isMobile = window.innerWidth < 768;
 
-                // Aplica a mudança de estado síncrona
                 sidebar.dataset.collapsed = newState;
                 document.documentElement.setAttribute(
                     "data-sidebar-collapsed",
@@ -115,7 +105,6 @@
                 );
                 localStorage.setItem(STORAGE_KEY, newState);
 
-                // Controla o backdrop no mobile baseando-se no novo estado aplicado
                 if (backdrop && isMobile) {
                     if (newState === "false") {
                         backdrop.classList.remove("hidden");
@@ -126,12 +115,10 @@
             });
         }
 
-        // 2. FECHAR AO CLICAR FORA: Fecha a sidebar caso o usuário toque na região escura
         if (backdrop) {
             backdrop.addEventListener("click", closeSidebarOnMobile);
         }
 
-        // 3. FECHAR AO CLICAR EM LINKS: Fecha automaticamente a barra após escolher uma opção no mobile
         const sidebarContainer = getSidebar();
         if (sidebarContainer) {
             const interactiveElements = sidebarContainer.querySelectorAll(
@@ -139,7 +126,6 @@
             );
 
             interactiveElements.forEach((element) => {
-                // Ignora o próprio botão de toggle e formulários puros
                 if (
                     element.id === "sidebar-toggle" ||
                     element.tagName === "FORM"
@@ -147,9 +133,7 @@
                     return;
 
                 element.addEventListener("click", () => {
-                    // Ignora se for o <summary> do menu do usuário (para permitir que o submenu abra)
                     if (element.tagName === "SUMMARY") return;
-
                     closeSidebarOnMobile();
                 });
             });
@@ -192,7 +176,94 @@
 
     /**
      * ==========================================
-     * 4. ANIMAÇÕES DA PÁGINA WELCOME & ACESSIBILIDADE
+     * 4. UPLOAD DE AVATAR COM PREVIEW
+     * ==========================================
+     *
+     * @param {Object} options
+     * @param {string} options.inputId       - id do <input type="file">
+     * @param {string} options.previewId     - id do <img> de preview
+     * @param {string} options.placeholderId - id do placeholder "No image"
+     * @param {string} options.errorId       - id do <p> de erro client-side
+     * @param {string} options.labelId       - id do <label> do input
+     * @param {string} options.submitId      - id do <button type="submit">
+     * @param {number} options.maxMb         - tamanho máximo em MB (padrão: 0.5)
+     */
+    function initAvatarUpload({
+        inputId = "avatar",
+        previewId = "avatar-preview",
+        placeholderId = "avatar-placeholder",
+        errorId = "avatar-error",
+        labelId = "avatar-label",
+        submitId = "submit-btn",
+        maxMb = 0.5,
+    } = {}) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        const placeholder = document.getElementById(placeholderId);
+        const errorEl = document.getElementById(errorId);
+        const label = document.getElementById(labelId);
+        const submitBtn = document.getElementById(submitId);
+
+        if (!input) return;
+
+        const MAX_SIZE = maxMb * 1024 * 1024;
+        const ALLOWED = ["image/jpeg", "image/png", "image/webp"];
+
+        function reset() {
+            errorEl.textContent = "";
+            errorEl.classList.add("hidden");
+            submitBtn.disabled = false;
+            label.title = "Select profile picture";
+        }
+
+        function clearPreview() {
+            preview.src = "";
+            preview.classList.add("hidden");
+            placeholder.classList.remove("hidden");
+        }
+
+        function showError(msg) {
+            errorEl.textContent = msg;
+            errorEl.classList.remove("hidden");
+            submitBtn.disabled = true;
+            label.title = "Click on Select image and then Cancel to clear.";
+            clearPreview();
+            input.value = "";
+        }
+
+        input.addEventListener("change", () => {
+            const file = input.files?.[0];
+
+            reset();
+
+            if (!file) {
+                clearPreview();
+                return;
+            }
+
+            if (!ALLOWED.includes(file.type)) {
+                showError("Only JPEG, PNG and WebP images are allowed.");
+                return;
+            }
+
+            if (file.size > MAX_SIZE) {
+                showError(`Image must be smaller than ${maxMb}MB.`);
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                preview.src = e.target.result;
+                preview.classList.remove("hidden");
+                placeholder.classList.add("hidden");
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    /**
+     * ==========================================
+     * 5. ANIMAÇÕES DA PÁGINA WELCOME & ACESSIBILIDADE
      * ==========================================
      */
     function initWelcomeAnimations() {
@@ -217,7 +288,6 @@
             });
         }
 
-        // Suporte à Acessibilidade de Movimentos Reduzidos
         const mediaQuery = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
         );
@@ -234,7 +304,7 @@
 
     /**
      * ==========================================
-     * 5. FECHAR <details> AO CLICAR FORA OU PRESSIONAR ESC
+     * 6. FECHAR <details> AO CLICAR FORA OU PRESSIONAR ESC
      * ==========================================
      */
     function initOutsideClickClose() {
@@ -253,7 +323,6 @@
             document.querySelectorAll("details[open]").forEach((details) => {
                 details.removeAttribute("open");
 
-                // Devolve o foco para o <summary>, mantendo a navegação por teclado consistente
                 const summary = details.querySelector("summary");
                 if (summary) summary.focus();
             });
@@ -268,6 +337,7 @@
     document.addEventListener("DOMContentLoaded", () => {
         initSidebar();
         initPasswordToggles();
+        initAvatarUpload();
         initWelcomeAnimations();
         initOutsideClickClose();
     });
